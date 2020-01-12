@@ -19,6 +19,7 @@ import com.txusmslabs.templateapp.framework.data.server.TheMovieDbDataSource
 import com.txusmslabs.templateapp.ui.common.*
 import com.txusmslabs.usecases.GetPopularMovies
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainFragment : Fragment() {
 
@@ -46,6 +47,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
+        toolbar.setTitle(R.string.app_name)
 
         viewModel = getViewModel {
             MainViewModel(
