@@ -40,10 +40,11 @@ class DetailViewModel(
     fun onFavoriteClicked() = launch {
         launch {
             movie.value?.let {
-                val updatedMovie = it.copy(favorite = !it.favorite)
-                _movie.value = updatedMovie
-                updateUi()
-                toggleMovieFavorite.invoke(it)
+                val updatedMovie = toggleMovieFavorite.invoke(it)
+                updatedMovie?.let {m ->
+                    _movie.value = m
+                    updateUi()
+                }
             }
         }
     }

@@ -18,5 +18,5 @@ interface MovieDao {
     fun insertMovies(movies: List<Movie>)
 
     @Update
-    fun updateMovie(movie: Movie)
+    fun updateMovie(movie: Movie): Int
 }

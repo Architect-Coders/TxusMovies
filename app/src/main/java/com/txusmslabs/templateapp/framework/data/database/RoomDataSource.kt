@@ -26,7 +26,6 @@ class RoomDataSource(db: MovieDatabase) : LocalDataSource {
         movieDao.findById(id).toDomainMovie()
     }
 
-    override suspend fun update(movie: Movie) {
-        withContext(Dispatchers.IO) { movieDao.updateMovie(movie.toRoomMovie()) }
-    }
+    override suspend fun update(movie: Movie): Boolean =
+        withContext(Dispatchers.IO) { movieDao.updateMovie(movie.toRoomMovie()) > 0 }
 }
