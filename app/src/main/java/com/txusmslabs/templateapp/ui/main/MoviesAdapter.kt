@@ -2,9 +2,9 @@ package com.txusmslabs.templateapp.ui.main
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.ViewMovieBinding
-import com.txusmslabs.templateapp.framework.data.database.Movie
 import com.txusmslabs.templateapp.ui.common.basicDiffUtil
 import com.txusmslabs.templateapp.ui.common.bindingInflate
 

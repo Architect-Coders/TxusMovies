@@ -2,8 +2,7 @@ package com.txusmslabs.templateapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.txusmslabs.templateapp.framework.data.database.Movie
-import com.txusmslabs.templateapp.framework.data.toRoomMovie
+import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.Event
 import com.txusmslabs.templateapp.ui.common.ScopedViewModel
 import com.txusmslabs.usecases.GetPopularMovies
@@ -35,7 +34,7 @@ class MainViewModel(private val getPopularMovies: GetPopularMovies) : ScopedView
     fun onCoarsePermissionRequested() {
         launch {
             _loading.value = true
-            _movies.value = getPopularMovies.invoke().map { it.toRoomMovie() }
+            _movies.value = getPopularMovies.invoke()
             _loading.value = false
         }
     }

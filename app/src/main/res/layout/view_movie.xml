@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.txusmslabs.templateapp.framework.data.database.Movie" />
+            type="com.txusmslabs.domain.Movie" />
     </data>
 
     <LinearLayout
