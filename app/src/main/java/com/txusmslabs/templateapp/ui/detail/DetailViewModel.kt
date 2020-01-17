@@ -30,6 +30,9 @@ class DetailViewModel(
     private val _favorite = MutableLiveData<Boolean>()
     val favorite: LiveData<Boolean> get() = _favorite
 
+    private val _notFound = MutableLiveData<Boolean>()
+    val notFound: LiveData<Boolean> get() = _notFound
+
     init {
         launch {
             _movie.value = findMovieById.invoke(movieId)
@@ -55,6 +58,6 @@ class DetailViewModel(
             _overview.value = overview
             _url.value = backdropPath
             _favorite.value = favorite
-        }
+        } ?: kotlin.run { _notFound.postValue(true) }
     }
 }

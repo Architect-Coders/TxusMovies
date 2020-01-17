@@ -18,7 +18,7 @@ class MoviesRepository(
         return localDataSource.getPopularMovies()
     }
 
-    suspend fun findById(id: Int): Movie = localDataSource.findById(id)
+    suspend fun findById(id: Int): Movie? = localDataSource.findById(id)
 
     suspend fun update(movie: Movie): Movie? {
         return if (localDataSource.update(movie)) movie else null

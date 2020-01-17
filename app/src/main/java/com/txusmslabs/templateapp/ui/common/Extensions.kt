@@ -1,12 +1,14 @@
 package com.txusmslabs.templateapp.ui.common
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -80,3 +82,7 @@ val Fragment.app: MyApp
     get() = ((activity?.app)
         ?: IllegalStateException("Fragment needs to be attach to the activity to access the App instance"))
             as MyApp
+
+fun Application.toast(msg: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, msg, duration).show()
+}
