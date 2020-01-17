@@ -8,22 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.txusmslabs.data.repository.MoviesRepository
-import com.txusmslabs.data.repository.RegionRepository
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentMainBinding
-import com.txusmslabs.templateapp.framework.data.AndroidPermissionChecker
-import com.txusmslabs.templateapp.framework.data.PlayServicesLocationDataSource
-import com.txusmslabs.templateapp.framework.data.database.RoomDataSource
-import com.txusmslabs.templateapp.framework.data.server.TheMovieDbDataSource
 import com.txusmslabs.templateapp.ui.common.*
-import com.txusmslabs.usecases.GetPopularMovies
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class MainFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
     private lateinit var adapter: MoviesAdapter
     private val coarsePermissionRequester by lazy {
         PermissionRequester(
@@ -31,6 +23,8 @@ class MainFragment : Fragment() {
             ACCESS_COARSE_LOCATION
         )
     }
+    private lateinit var component: MainFragmentComponent
+    private val viewModel: MainViewModel by lazy { getViewModel { component.mainViewModel } }
 
     private lateinit var navController: NavController
     private var binding: FragmentMainBinding? = null
@@ -48,22 +42,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
         toolbar.setTitle(R.string.app_name)
-
-        viewModel = getViewModel {
-            MainViewModel(
-                GetPopularMovies(
-                    MoviesRepository(
-                        RoomDataSource(app.db),
-                        TheMovieDbDataSource(),
-                        RegionRepository(
-                            PlayServicesLocationDataSource(app),
-                            AndroidPermissionChecker(app)
-                        ),
-                        app.getString(R.string.api_key)
-                    )
-                )
-            )
-        }
+        component = app.component.plus(MainFragmentModule())
 
         viewModel.navigateToMovie.observe(this, EventObserver { id ->
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(id)
