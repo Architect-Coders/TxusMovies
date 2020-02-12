@@ -48,7 +48,7 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "androidx.appcompat:appcompat:$androidXKotlin"
-    implementation "androidx.core:core-ktx:$androidXKotlin"
+    implementation "androidx.core:core-ktx:1.2.0"
 
     // TESTING
     testImplementation "junit:junit:$junitVersion"
@@ -61,8 +61,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:$recyclerviewSelection"
 
     // Architecture version
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxArchVersion"
-    androidTestImplementation "androidx.arch.core:core-testing:$androidxArchVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // DI
     implementation "org.koin:koin-android-viewmodel:$koinVersion"
