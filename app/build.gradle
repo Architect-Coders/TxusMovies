@@ -64,9 +64,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxArchVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$androidxArchVersion"
 
-    // DAGGER
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    // DI
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"

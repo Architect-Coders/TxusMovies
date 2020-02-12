@@ -1,6 +1,5 @@
 package com.txusmslabs.templateapp.framework.data.server
 
-import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 

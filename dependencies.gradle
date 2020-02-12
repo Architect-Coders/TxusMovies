@@ -6,6 +6,7 @@ ext {
     retrofitVersion = "2.6.4"
     httpLogger = "4.1.0"
     daggerVersion = '2.25.4'
+    koinVersion = '2.0.1'
     roomVersion = '2.2.3'
     coroutines = '1.3.2'
     navVersion = "2.1.0"

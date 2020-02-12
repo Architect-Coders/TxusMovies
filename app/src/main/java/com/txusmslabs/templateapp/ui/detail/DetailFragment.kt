@@ -6,20 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentDetailBinding
 import com.txusmslabs.templateapp.ui.common.app
 import com.txusmslabs.templateapp.ui.common.bindingInflate
-import com.txusmslabs.templateapp.ui.common.getViewModel
 import com.txusmslabs.templateapp.ui.common.toast
+import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailFragment : Fragment() {
 
-    private lateinit var component: DetailFragmentComponent
-    private val viewModel: DetailViewModel by lazy { getViewModel { component.detailViewModel } }
+    private val viewModel: DetailViewModel by currentScope.viewModel(this) {
+        parametersOf(args.id)
+    }
     private val args: DetailFragmentArgs by navArgs()
     private var binding: FragmentDetailBinding? = null
 
@@ -34,7 +36,6 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        component = app.component.plus(DetailFragmentModule(args.id))
 
         viewModel.notFound.observe(this, Observer {
             if (it) {

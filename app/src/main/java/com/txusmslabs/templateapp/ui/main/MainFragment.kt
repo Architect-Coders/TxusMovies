@@ -10,9 +10,13 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentMainBinding
-import com.txusmslabs.templateapp.ui.common.*
+import com.txusmslabs.templateapp.ui.common.EventObserver
+import com.txusmslabs.templateapp.ui.common.PermissionRequester
+import com.txusmslabs.templateapp.ui.common.bindingInflate
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
@@ -23,8 +27,7 @@ class MainFragment : Fragment() {
             ACCESS_COARSE_LOCATION
         )
     }
-    private lateinit var component: MainFragmentComponent
-    private val viewModel: MainViewModel by lazy { getViewModel { component.mainViewModel } }
+    private val viewModel: MainViewModel by currentScope.viewModel(this)
 
     private lateinit var navController: NavController
     private var binding: FragmentMainBinding? = null
@@ -42,7 +45,6 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
         toolbar.setTitle(R.string.app_name)
-        component = app.component.plus(MainFragmentModule())
 
         viewModel.navigateToMovie.observe(this, EventObserver { id ->
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(id)
