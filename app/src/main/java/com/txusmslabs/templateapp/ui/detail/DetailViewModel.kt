@@ -44,7 +44,7 @@ class DetailViewModel(
         launch {
             movie.value?.let {
                 val updatedMovie = toggleMovieFavorite.invoke(it)
-                updatedMovie?.let {m ->
+                updatedMovie.let {m ->
                     _movie.value = m
                     updateUi()
                 }

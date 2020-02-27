@@ -20,7 +20,5 @@ class MoviesRepository(
 
     suspend fun findById(id: Int): Movie? = localDataSource.findById(id)
 
-    suspend fun update(movie: Movie): Movie? {
-        return if (localDataSource.update(movie)) movie else null
-    }
+    suspend fun update(movie: Movie) = localDataSource.update(movie)
 }
