@@ -1,8 +1,8 @@
-package com.txusmslabs.usecases
+package com.txusmslabs.testshared
 
 import com.txusmslabs.domain.Movie
 
-internal val mockedMovie = Movie(
+val mockedMovie = Movie(
     0,
     "Title",
     "Overview",

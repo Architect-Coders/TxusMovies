@@ -6,17 +6,22 @@ import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.ScopedViewModel
 import com.txusmslabs.usecases.FindMovieById
 import com.txusmslabs.usecases.ToggleMovieFavorite
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class DetailViewModel(
     private val movieId: Int,
     private val findMovieById: FindMovieById,
-    private val toggleMovieFavorite: ToggleMovieFavorite
-) :
-    ScopedViewModel() {
+    private val toggleMovieFavorite: ToggleMovieFavorite,
+    uiDispatcher: CoroutineDispatcher
+) : ScopedViewModel(uiDispatcher) {
 
     private val _movie = MutableLiveData<Movie>()
-    val movie: LiveData<Movie> get() = _movie
+    val movie: LiveData<Movie>
+        get() {
+            if (_movie.value == null && _notFound.value == null) findMovie()
+            return _movie
+        }
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String> get() = _title
@@ -33,18 +38,16 @@ class DetailViewModel(
     private val _notFound = MutableLiveData<Boolean>()
     val notFound: LiveData<Boolean> get() = _notFound
 
-    init {
-        launch {
-            _movie.value = findMovieById.invoke(movieId)
-            updateUi()
-        }
+    private fun findMovie() = launch {
+        _movie.value = findMovieById.invoke(movieId)
+        updateUi()
     }
 
     fun onFavoriteClicked() = launch {
         launch {
             movie.value?.let {
                 val updatedMovie = toggleMovieFavorite.invoke(it)
-                updatedMovie.let {m ->
+                updatedMovie.let { m ->
                     _movie.value = m
                     updateUi()
                 }

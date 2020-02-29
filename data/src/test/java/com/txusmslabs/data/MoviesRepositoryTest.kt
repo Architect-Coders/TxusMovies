@@ -7,7 +7,7 @@ import com.txusmslabs.data.repository.MoviesRepository
 import com.txusmslabs.data.repository.RegionRepository
 import com.txusmslabs.data.source.LocalDataSource
 import com.txusmslabs.data.source.RemoteDataSource
-import com.txusmslabs.domain.Movie
+import com.txusmslabs.testshared.mockedMovie
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -92,19 +92,4 @@ class MoviesRepositoryTest {
             verify(localDataSource).update(movie)
         }
     }
-
-    private val mockedMovie = Movie(
-        0,
-        "Title",
-        "Overview",
-        "01/01/2025",
-        "",
-        "",
-        "EN",
-        "Title",
-        5.0,
-        5.1,
-        false
-    )
-
 }

@@ -37,7 +37,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.notFound.observe(this, Observer {
+        viewModel.notFound.observe(viewLifecycleOwner, Observer {
             if (it) {
                 app.toast(R.string.message_movie_not_found)
                 findNavController().popBackStack()

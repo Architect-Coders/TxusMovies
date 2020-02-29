@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewmodel"
             type="com.txusmslabs.templateapp.ui.main.MainViewModel" />
@@ -15,8 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.MainFragment">
 
-        <include layout="@layout/toolbar" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
@@ -24,7 +21,7 @@
             app:items="@{viewmodel.movies}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             app:spanCount="3"
             tools:listitem="@layout/view_movie" />
 

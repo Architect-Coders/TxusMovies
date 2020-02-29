@@ -6,9 +6,13 @@ import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.Event
 import com.txusmslabs.templateapp.ui.common.ScopedViewModel
 import com.txusmslabs.usecases.GetPopularMovies
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val getPopularMovies: GetPopularMovies) : ScopedViewModel() {
+class MainViewModel(
+    private val getPopularMovies: GetPopularMovies,
+    uiDispatcher: CoroutineDispatcher
+) : ScopedViewModel(uiDispatcher) {
 
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> get() = _movies
@@ -20,11 +24,14 @@ class MainViewModel(private val getPopularMovies: GetPopularMovies) : ScopedView
     val navigateToMovie: LiveData<Event<Int>> get() = _navigateToMovie
 
     private val _requestLocationPermission = MutableLiveData<Event<Unit>>()
-    val requestLocationPermission: LiveData<Event<Unit>> get() = _requestLocationPermission
+    val requestLocationPermission: LiveData<Event<Unit>>
+        get() {
+            if (_requestLocationPermission.value == null) refresh()
+            return _requestLocationPermission
+        }
 
     init {
         initScope()
-        refresh()
     }
 
     private fun refresh() {

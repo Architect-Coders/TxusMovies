@@ -22,7 +22,6 @@
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.DarkOverlay">
 
-
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -88,9 +87,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:onClick="@{() -> viewmodel.onFavoriteClicked()}"
             android:src="@drawable/ic_favorite_off"
             app:favorite="@{viewmodel.favorite}"
-            android:onClick="@{() -> viewmodel.onFavoriteClicked()}"
             app:layout_anchor="@id/appBarLayout"
             app:layout_anchorGravity="bottom|end" />
 

@@ -44,14 +44,13 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = view.findNavController()
-        toolbar.setTitle(R.string.app_name)
 
-        viewModel.navigateToMovie.observe(this, EventObserver { id ->
+        viewModel.navigateToMovie.observe(viewLifecycleOwner, EventObserver { id ->
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(id)
             navController.navigate(action)
         })
 
-        viewModel.requestLocationPermission.observe(this, EventObserver {
+        viewModel.requestLocationPermission.observe(viewLifecycleOwner, EventObserver {
             coarsePermissionRequester.request {
                 viewModel.onCoarsePermissionRequested()
             }

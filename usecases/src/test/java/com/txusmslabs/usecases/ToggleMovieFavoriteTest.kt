@@ -2,6 +2,7 @@ package com.txusmslabs.usecases
 
 import com.nhaarman.mockitokotlin2.verify
 import com.txusmslabs.data.repository.MoviesRepository
+import com.txusmslabs.testshared.mockedMovie
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

@@ -2,6 +2,7 @@ package com.txusmslabs.usecases
 
 import com.nhaarman.mockitokotlin2.whenever
 import com.txusmslabs.data.repository.MoviesRepository
+import com.txusmslabs.testshared.mockedMovie
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
