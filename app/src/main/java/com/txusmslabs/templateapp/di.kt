@@ -11,6 +11,7 @@ import com.txusmslabs.templateapp.framework.data.AndroidPermissionChecker
 import com.txusmslabs.templateapp.framework.data.PlayServicesLocationDataSource
 import com.txusmslabs.templateapp.framework.data.database.MovieDatabase
 import com.txusmslabs.templateapp.framework.data.database.RoomDataSource
+import com.txusmslabs.templateapp.framework.data.server.TheMovieDb
 import com.txusmslabs.templateapp.framework.data.server.TheMovieDbDataSource
 import com.txusmslabs.templateapp.ui.detail.DetailFragment
 import com.txusmslabs.templateapp.ui.detail.DetailViewModel
@@ -41,10 +42,12 @@ private val appModule = module {
     single(named("apiKey")) { androidApplication().getString(R.string.api_key) }
     single { MovieDatabase.build(get()) }
     factory<LocalDataSource> { RoomDataSource(get()) }
-    factory<RemoteDataSource> { TheMovieDbDataSource() }
+    factory<RemoteDataSource> { TheMovieDbDataSource(get()) }
     factory<LocationDataSource> { PlayServicesLocationDataSource(get()) }
     factory<PermissionChecker> { AndroidPermissionChecker(get()) }
     single<CoroutineDispatcher> { Dispatchers.Main }
+    single(named("baseUrl")) { "https://api.themoviedb.org/3/" }
+    single { TheMovieDb(get(named("baseUrl"))) }
 }
 
 val dataModule = module {

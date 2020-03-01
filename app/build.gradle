@@ -16,7 +16,7 @@ android {
         multiDexEnabled true
         applicationId "com.txusmslabs.templateapp"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -53,6 +53,11 @@ dependencies {
     testImplementation testLibs.values()
     testImplementation androidxTestLibs.values()
     androidTestImplementation androidTestLibs.values()
+
+    // Testing code should not be included in the main code.
+    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.2'
+    implementation "androidx.test:core:1.2.0"
 }
 
 //apply plugin: 'com.google.gms.google-services'
