@@ -2,7 +2,6 @@ package com.txusmslabs.templateapp.ui.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.refEq
 import com.nhaarman.mockitokotlin2.whenever
 import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.Event
@@ -48,7 +47,7 @@ class MainViewModelTest {
 
         vm.requestLocationPermission.observeForever(observerPermission)
 
-        verify(observerPermission).onChanged(refEq(Event(Unit)))
+        verify(observerPermission).onChanged(Event(Unit))
     }
 
     @Test
