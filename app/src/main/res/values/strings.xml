@@ -4,4 +4,7 @@
     <string name="home_title">My Movies</string>
 
     <string name="message_movie_not_found">Movie not found</string>
+
+    <string name="dialog_ok_button">OK</string>
+    <string name="dialog_cancel_button">Cancel</string>
 </resources>

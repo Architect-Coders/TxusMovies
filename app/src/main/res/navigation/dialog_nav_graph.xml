@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/dialog_nav_graph"
+    app:startDestination="@id/alertFragment">
+
+    <dialog
+        android:id="@+id/alertFragment"
+        android:name="com.txusmslabs.templateapp.ui.dialog.AlertFragment"
+        android:label="AlertFragment" >
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </dialog>
+    <action
+        android:id="@+id/action_to_alertFragment"
+        app:destination="@id/alertFragment" />
+</navigation>

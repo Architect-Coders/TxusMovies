@@ -2,9 +2,7 @@ package com.txusmslabs.templateapp.ui.main
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -13,8 +11,8 @@ import com.txusmslabs.templateapp.databinding.FragmentMainBinding
 import com.txusmslabs.templateapp.ui.common.EventObserver
 import com.txusmslabs.templateapp.ui.common.PermissionRequester
 import com.txusmslabs.templateapp.ui.common.bindingInflate
+import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.toolbar.*
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -23,7 +21,7 @@ class MainFragment : Fragment() {
     private lateinit var adapter: MoviesAdapter
     private val coarsePermissionRequester by lazy {
         PermissionRequester(
-            activity!!,
+            requireActivity(),
             ACCESS_COARSE_LOCATION
         )
     }
@@ -37,6 +35,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         binding = container?.bindingInflate(R.layout.fragment_main, false)
         return binding?.root
     }
@@ -63,5 +62,21 @@ class MainFragment : Fragment() {
             viewmodel = viewModel
             lifecycleOwner = this@MainFragment
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                val action = AlertFragmentDirections.actionToAlertFragment("Hola!!")
+                navController.navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

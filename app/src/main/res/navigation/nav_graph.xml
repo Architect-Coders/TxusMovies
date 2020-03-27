@@ -27,4 +27,8 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <include app:graph="@navigation/dialog_nav_graph" />
+    <action
+        android:id="@+id/action_to_alertFragment"
+        app:destination="@id/dialog_nav_graph" />
 </navigation>
