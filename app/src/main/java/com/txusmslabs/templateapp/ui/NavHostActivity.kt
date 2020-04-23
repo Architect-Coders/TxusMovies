@@ -26,12 +26,12 @@ class NavHostActivity : AppCompatActivity() {
         // Set up Action Bar
         val navController = host.navController
 
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.mainFragment))
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener{ _, destination, _ ->
-            if (destination.id == R.id.detailFragment)
+            if (listOf(R.id.detailFragment, R.id.splashFragment).contains(destination.id))
                 toolbar.visibility = View.GONE
             else
                 toolbar.visibility = View.VISIBLE
