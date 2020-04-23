@@ -1,5 +1,6 @@
 package com.txusmslabs.templateapp.framework.data.server
 
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -8,5 +9,5 @@ interface TheMovieDbService {
     suspend fun listPopularMoviesAsync(
         @Query("api_key") apiKey: String,
         @Query("region") region: String
-    ): MovieDbResult
+    ): Response<MovieDbResult>
 }

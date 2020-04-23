@@ -1,14 +1,19 @@
 package com.txusmslabs.templateapp.framework.data.server
 
+import com.txusmslabs.data.exception.Failure
+import com.txusmslabs.data.functional.Either
 import com.txusmslabs.data.source.RemoteDataSource
 import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.framework.data.toDomainMovie
 
 class TheMovieDbDataSource(private val theMovieDb: TheMovieDb) : RemoteDataSource {
 
-    override suspend fun getPopularMovies(apiKey: String, region: String): List<Movie> =
+    override suspend fun getPopularMovies(
+        apiKey: String,
+        region: String
+    ): Either<Failure, List<Movie>> =
         theMovieDb.service
-            .listPopularMoviesAsync(apiKey, region)
-            .results
-            .map { it.toDomainMovie() }
+            .listPopularMoviesAsync(apiKey, region).safeCall(transform = {
+                it.results.map { m -> m.toDomainMovie() }
+            })
 }

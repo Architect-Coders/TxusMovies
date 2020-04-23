@@ -6,7 +6,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 21
@@ -56,7 +56,7 @@ dependencies {
 
     // Testing code should not be included in the main code.
     // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
-    debugImplementation 'androidx.fragment:fragment-testing:1.2.2'
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.4'
     implementation "androidx.test:core:1.2.0"
 }
 

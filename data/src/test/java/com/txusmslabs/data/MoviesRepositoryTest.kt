@@ -3,6 +3,7 @@ package com.txusmslabs.data
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import com.txusmslabs.data.functional.Either
 import com.txusmslabs.data.repository.MoviesRepository
 import com.txusmslabs.data.repository.RegionRepository
 import com.txusmslabs.data.source.LocalDataSource
@@ -58,7 +59,7 @@ class MoviesRepositoryTest {
 
             val remoteMovies = listOf(mockedMovie.copy(2))
             whenever(localDataSource.isEmpty()).thenReturn(true)
-            whenever(remoteDataSource.getPopularMovies(any(), any())).thenReturn(remoteMovies)
+            whenever(remoteDataSource.getPopularMovies(any(), any())).thenReturn(Either.Right(remoteMovies))
             whenever(regionRepository.findLastRegion()).thenReturn("US")
 
             moviesRepository.suspendPopularMovies()
