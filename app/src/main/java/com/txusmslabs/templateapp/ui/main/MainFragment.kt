@@ -10,10 +10,12 @@ import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentMainBinding
 import com.txusmslabs.templateapp.ui.common.EventObserver
 import com.txusmslabs.templateapp.ui.common.PermissionRequester
+import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.common.bindingInflate
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
@@ -26,6 +28,7 @@ class MainFragment : Fragment() {
         )
     }
     private val viewModel: MainViewModel by currentScope.viewModel(this)
+    private val sharedViewModel: SharedViewModel by sharedViewModel()
 
     private lateinit var navController: NavController
     private var binding: FragmentMainBinding? = null
@@ -69,6 +72,10 @@ class MainFragment : Fragment() {
             R.id.action_settings -> {
                 val action = AlertFragmentDirections.actionToAlertFragment("Hola!!")
                 navController.navigate(action)
+                true
+            }
+            R.id.action_test_deeplink -> {
+
                 true
             }
             else -> super.onOptionsItemSelected(item)

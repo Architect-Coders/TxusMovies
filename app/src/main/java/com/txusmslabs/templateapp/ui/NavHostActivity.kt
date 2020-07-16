@@ -1,25 +1,46 @@
 package com.txusmslabs.templateapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.txusmslabs.templateapp.R
+import com.txusmslabs.templateapp.ui.common.EventObserver
+import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import kotlinx.android.synthetic.main.toolbar.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class NavHostActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val sharedViewModel: SharedViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_host)
         setSupportActionBar(toolbar)
+        setupNavigation()
 
+        sharedViewModel.navigateToLogin.observe(this, EventObserver {
+            findNavController(R.id.nav_host_fragment).navigate(
+                R.id.nav_graph,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.nav_graph, true).build()
+            )
+        })
+
+    }
+
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
+
+    private fun setupNavigation() {
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
 
@@ -30,7 +51,7 @@ class NavHostActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        navController.addOnDestinationChangedListener{ _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             if (listOf(R.id.detailFragment, R.id.splashFragment).contains(destination.id))
                 toolbar.visibility = View.GONE
             else
@@ -38,7 +59,8 @@ class NavHostActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp() =
-        findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
-
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
+    }
 }

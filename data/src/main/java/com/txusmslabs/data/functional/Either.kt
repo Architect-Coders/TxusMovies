@@ -28,7 +28,7 @@ sealed class Either<out L, out R> {
         else -> null
     }
 
-    fun either(fnL: (L) -> Any, fnR: (R) -> Any): Any =
+    fun fold(fnL: (L) -> Any, fnR: (R) -> Any): Any =
         when (this) {
             is Left -> fnL(a)
             is Right -> fnR(b)

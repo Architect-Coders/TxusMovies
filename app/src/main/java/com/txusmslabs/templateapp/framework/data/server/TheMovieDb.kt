@@ -18,6 +18,6 @@ class TheMovieDb(baseUrl: String) {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .run {
-            create<TheMovieDbService>(TheMovieDbService::class.java)
+            create(TheMovieDbService::class.java)
         }
 }

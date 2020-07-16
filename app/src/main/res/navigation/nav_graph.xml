@@ -32,10 +32,13 @@
         android:id="@+id/detailFragment"
         android:name="com.txusmslabs.templateapp.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="id"
             app:argType="integer" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="app://film/{id}" />
     </fragment>
     <include app:graph="@navigation/dialog_nav_graph" />
     <action

@@ -13,6 +13,7 @@ import com.txusmslabs.templateapp.framework.data.database.MovieDatabase
 import com.txusmslabs.templateapp.framework.data.database.RoomDataSource
 import com.txusmslabs.templateapp.framework.data.server.TheMovieDb
 import com.txusmslabs.templateapp.framework.data.server.TheMovieDbDataSource
+import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.detail.DetailFragment
 import com.txusmslabs.templateapp.ui.detail.DetailViewModel
 import com.txusmslabs.templateapp.ui.main.MainFragment
@@ -66,4 +67,6 @@ private val scopesModule = module {
         scoped { FindMovieById(get()) }
         scoped { ToggleMovieFavorite(get()) }
     }
+
+    viewModel { SharedViewModel() }
 }

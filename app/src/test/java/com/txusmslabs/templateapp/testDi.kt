@@ -1,5 +1,6 @@
 package com.txusmslabs.templateapp
 
+import com.txusmslabs.data.functional.Either
 import com.txusmslabs.data.repository.PermissionChecker
 import com.txusmslabs.data.source.LocalDataSource
 import com.txusmslabs.data.source.LocationDataSource
@@ -58,7 +59,7 @@ class FakeRemoteDataSource : RemoteDataSource {
 
     var movies = defaultFakeMovies
 
-    override suspend fun getPopularMovies(apiKey: String, region: String) = movies
+    override suspend fun getPopularMovies(apiKey: String, region: String) = Either.Right(movies)
 }
 
 class FakeLocationDataSource : LocationDataSource {

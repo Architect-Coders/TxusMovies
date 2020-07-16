@@ -10,10 +10,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentDetailBinding
+import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.common.app
 import com.txusmslabs.templateapp.ui.common.bindingInflate
 import com.txusmslabs.templateapp.ui.common.toast
 import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -22,6 +24,7 @@ class DetailFragment : Fragment() {
     private val viewModel: DetailViewModel by currentScope.viewModel(this) {
         parametersOf(args.id)
     }
+    private val sharedViewModel: SharedViewModel by sharedViewModel()
     private val args: DetailFragmentArgs by navArgs()
     private var binding: FragmentDetailBinding? = null
 

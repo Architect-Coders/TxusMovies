@@ -21,15 +21,15 @@ import org.mockito.junit.MockitoJUnitRunner
 class MoviesRepositoryTest {
 
     @Mock
-    lateinit var localDataSource: LocalDataSource
+    private lateinit var localDataSource: LocalDataSource
 
     @Mock
-    lateinit var remoteDataSource: RemoteDataSource
+    private lateinit var remoteDataSource: RemoteDataSource
 
     @Mock
-    lateinit var regionRepository: RegionRepository
+    private lateinit var regionRepository: RegionRepository
 
-    lateinit var moviesRepository: MoviesRepository
+    private lateinit var moviesRepository: MoviesRepository
 
     private val apiKey = "1a2b3c4d"
 
@@ -49,7 +49,7 @@ class MoviesRepositoryTest {
 
             val result = moviesRepository.suspendPopularMovies()
 
-            assertEquals(localMovies, result)
+            assertEquals(localMovies, result.getRight())
         }
     }
 

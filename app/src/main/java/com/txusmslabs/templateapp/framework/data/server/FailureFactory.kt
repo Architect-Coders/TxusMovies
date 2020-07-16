@@ -8,7 +8,7 @@ open class FailureFactory {
     open fun handleCode(code: Int) =
         when(code) {
             HTTP_BAD_REQUEST -> Failure.ServerError
-            else -> Failure.ApiFailure(code)
+            else -> Failure.api(code)
         }
 
     open fun handleException(e: Exception? = null) = Failure.UnexpectedFailure

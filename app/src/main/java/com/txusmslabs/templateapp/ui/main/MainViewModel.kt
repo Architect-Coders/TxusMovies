@@ -41,7 +41,11 @@ class MainViewModel(
     fun onCoarsePermissionRequested() {
         launch {
             _loading.value = true
-            _movies.value = getPopularMovies.invoke()
+            getPopularMovies.invoke().fold({
+
+            },{
+                _movies.postValue(it)
+            })
             _loading.value = false
         }
     }
