@@ -35,7 +35,7 @@ fun Application.initDI() {
     startKoin {
         androidLogger()
         androidContext(this@initDI)
-        modules(listOf(appModule, dataModule, scopesModule))
+        koin.loadModules(listOf(appModule, dataModule, scopesModule))
     }
 }
 

@@ -13,9 +13,9 @@ import com.txusmslabs.templateapp.ui.common.PermissionRequester
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
 import kotlinx.android.synthetic.main.fragment_main.*
-import org.koin.android.scope.currentScope
+import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.scope.viewModel
 
 class MainFragment : Fragment() {
 
@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
             ACCESS_COARSE_LOCATION
         )
     }
-    private val viewModel: MainViewModel by currentScope.viewModel(this)
+    private val viewModel: MainViewModel by lifecycleScope.viewModel(this)
     private val sharedViewModel: SharedViewModel by sharedViewModel()
 
     private lateinit var navController: NavController

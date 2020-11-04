@@ -13,9 +13,8 @@ import androidx.test.rule.GrantPermissionRule
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.framework.data.server.TheMovieDb
-import com.txusmslabs.templateapp.utils.DataBindingIdlingResource
-import com.txusmslabs.templateapp.utils.fromJson
-import com.txusmslabs.templateapp.utils.monitorActivity
+import com.txusmslabs.templateapp.util.EspressoIdlingResource
+import com.txusmslabs.templateapp.utils.*
 import okhttp3.mockwebserver.MockResponse
 import org.junit.After
 import org.junit.Before
@@ -36,6 +35,7 @@ class UiTest : KoinTest {
         )
 
     private val dataBindingIdlingResource = DataBindingIdlingResource()
+    private val splashIdlingResource = SplashIdlingResource()
 
     @Before
     fun setUp() {
@@ -57,6 +57,8 @@ class UiTest : KoinTest {
     @Before
     fun registerIdlingResource() {
         IdlingRegistry.getInstance().register(dataBindingIdlingResource)
+        IdlingRegistry.getInstance().register(splashIdlingResource)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
 
     /**
@@ -65,12 +67,15 @@ class UiTest : KoinTest {
     @After
     fun unregisterIdlingResource() {
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
+        IdlingRegistry.getInstance().unregister(splashIdlingResource)
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
     fun clickAMovieNavigatesToDetail() {
         val activityScenario = ActivityScenario.launch(NavHostActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
+        splashIdlingResource.monitorNavController(activityScenario)
 
         onView(withId(R.id.recycler)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
