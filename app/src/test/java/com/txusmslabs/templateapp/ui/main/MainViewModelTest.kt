@@ -3,6 +3,7 @@ package com.txusmslabs.templateapp.ui.main
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.whenever
+import com.txusmslabs.data.functional.Either
 import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.Event
 import com.txusmslabs.testshared.mockedMovie
@@ -55,7 +56,7 @@ class MainViewModelTest {
         runBlocking {
 
             val movies = listOf(mockedMovie.copy(id = 1))
-            whenever(getPopularMovies.invoke()).thenReturn(movies)
+            whenever(getPopularMovies.invoke()).thenReturn(Either.Right(movies))
             vm.loading.observeForever(observerLoading)
 
             vm.onCoarsePermissionRequested()
@@ -69,7 +70,7 @@ class MainViewModelTest {
 
         runBlocking {
             val movies = listOf(mockedMovie.copy(id = 1))
-            whenever(getPopularMovies.invoke()).thenReturn(movies)
+            whenever(getPopularMovies.invoke()).thenReturn(Either.Right(movies))
 
             vm.movies.observeForever(observerMovies)
 

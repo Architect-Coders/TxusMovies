@@ -14,4 +14,28 @@
 
     <style name="AppTheme.DarkOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
+    <style name="Widget.App.Button.Circle" parent="Widget.MaterialComponents.Button.UnelevatedButton.Icon">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.Circle</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="iconSize">20dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="android:padding">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearanceOverlay.App.Button.Circle</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button.Circle" parent="">
+        <item name="colorPrimary">@android:color/black</item>
+    </style>
+
 </resources>

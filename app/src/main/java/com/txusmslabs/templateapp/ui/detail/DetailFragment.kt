@@ -12,7 +12,6 @@ import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentDetailBinding
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.common.app
-import com.txusmslabs.templateapp.ui.common.bindingInflate
 import com.txusmslabs.templateapp.ui.common.toast
 import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -26,15 +25,15 @@ class DetailFragment : Fragment() {
     }
     private val sharedViewModel: SharedViewModel by sharedViewModel()
     private val args: DetailFragmentArgs by navArgs()
-    private var binding: FragmentDetailBinding? = null
+    private lateinit var binding: FragmentDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = container?.bindingInflate(R.layout.fragment_detail, false)
-        return binding?.root
+        binding = FragmentDetailBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +45,10 @@ class DetailFragment : Fragment() {
                 findNavController().popBackStack()
             }
         })
-        binding?.viewmodel = viewModel
-        binding?.lifecycleOwner = this
+
+        with(binding) {
+            viewmodel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 }

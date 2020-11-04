@@ -11,7 +11,6 @@ import com.txusmslabs.templateapp.databinding.FragmentMainBinding
 import com.txusmslabs.templateapp.ui.common.EventObserver
 import com.txusmslabs.templateapp.ui.common.PermissionRequester
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
-import com.txusmslabs.templateapp.ui.common.bindingInflate
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.scope.currentScope
@@ -31,7 +30,7 @@ class MainFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by sharedViewModel()
 
     private lateinit var navController: NavController
-    private var binding: FragmentMainBinding? = null
+    private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +38,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        binding = container?.bindingInflate(R.layout.fragment_main, false)
-        return binding?.root
+        binding = FragmentMainBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,9 +60,9 @@ class MainFragment : Fragment() {
         adapter = MoviesAdapter(viewModel::onMovieClicked)
         recycler.adapter = adapter
 
-        binding?.apply {
+        with(binding) {
             viewmodel = viewModel
-            lifecycleOwner = this@MainFragment
+            lifecycleOwner = viewLifecycleOwner
         }
     }
 
