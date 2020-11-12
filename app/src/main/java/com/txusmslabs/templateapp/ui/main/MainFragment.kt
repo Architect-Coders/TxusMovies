@@ -3,7 +3,6 @@ package com.txusmslabs.templateapp.ui.main
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.txusmslabs.templateapp.R
@@ -12,11 +11,11 @@ import com.txusmslabs.templateapp.ui.common.EventObserver
 import com.txusmslabs.templateapp.ui.common.PermissionRequester
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
-import org.koin.android.scope.lifecycleScope
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.scope.viewModel
+import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class MainFragment : Fragment() {
+
+class MainFragment : ScopeFragment() {
 
     private lateinit var adapter: MoviesAdapter
     private val coarsePermissionRequester by lazy {
@@ -25,7 +24,7 @@ class MainFragment : Fragment() {
             ACCESS_COARSE_LOCATION
         )
     }
-    private val viewModel: MainViewModel by lifecycleScope.viewModel(this)
+    private val viewModel: MainViewModel by inject()
     private val sharedViewModel: SharedViewModel by sharedViewModel()
 
     private lateinit var navController: NavController

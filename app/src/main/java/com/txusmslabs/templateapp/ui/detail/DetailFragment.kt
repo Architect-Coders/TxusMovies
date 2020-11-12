@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,14 +12,13 @@ import com.txusmslabs.templateapp.databinding.FragmentDetailBinding
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.common.app
 import com.txusmslabs.templateapp.ui.common.toast
-import org.koin.android.scope.lifecycleScope
-import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.scope.viewModel
+import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.parameter.parametersOf
 
-class DetailFragment : Fragment() {
+class DetailFragment : ScopeFragment() {
 
-    private val viewModel: DetailViewModel by lifecycleScope.viewModel(this) {
+    private val viewModel: DetailViewModel by inject {
         parametersOf(args.id)
     }
     private val sharedViewModel: SharedViewModel by sharedViewModel()

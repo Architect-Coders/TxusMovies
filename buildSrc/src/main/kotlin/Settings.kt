@@ -3,7 +3,7 @@ object Versions {
     const val navigation = "2.3.1"
     const val retrofit = "2.9.0"
     const val okhttp = "4.9.0"
-    const val koin = "2.1.6"
+    const val koin = "2.2.0"
     const val mockito = "3.6.0"
 }
 
@@ -42,7 +42,8 @@ object Libs {
         "com.squareup.retrofit2:retrofit:${Versions.retrofit}",
         "com.squareup.retrofit2:converter-gson:${Versions.retrofit}",
         "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}",
-        "org.koin:koin-android-viewmodel:${Versions.koin}"
+        "org.koin:koin-androidx-viewmodel:${Versions.koin}",
+        "org.koin:koin-androidx-scope:${Versions.koin}"
     )
 
     val testLibs = listOf(

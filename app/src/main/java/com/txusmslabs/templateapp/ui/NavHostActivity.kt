@@ -15,7 +15,8 @@ import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.ActivityNavHostBinding
 import com.txusmslabs.templateapp.ui.common.EventObserver
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class NavHostActivity : AppCompatActivity() {
 
@@ -37,7 +38,6 @@ class NavHostActivity : AppCompatActivity() {
                 NavOptions.Builder().setPopUpTo(R.id.nav_graph, true).build()
             )
         })
-
     }
 
     override fun onSupportNavigateUp() =
