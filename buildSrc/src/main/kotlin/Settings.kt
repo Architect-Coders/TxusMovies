@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.4.10"
+    const val kotlin = "1.4.20-RC"
     const val navigation = "2.3.1"
     const val retrofit = "2.9.0"
     const val okhttp = "4.9.0"
