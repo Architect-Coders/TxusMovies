@@ -26,10 +26,11 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+
 
 fun Application.initDI() {
     startKoin {
@@ -57,12 +58,12 @@ val dataModule = module {
 }
 
 private val scopesModule = module {
-    scope(named<MainFragment>()) {
+    scope<MainFragment> {
         viewModel { MainViewModel(get(), get()) }
         scoped { GetPopularMovies(get()) }
     }
 
-    scope(named<DetailFragment>()) {
+    scope<DetailFragment> {
         viewModel { (id: Int) -> DetailViewModel(id, get(), get(), get()) }
         scoped { FindMovieById(get()) }
         scoped { ToggleMovieFavorite(get()) }
