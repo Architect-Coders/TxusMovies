@@ -12,7 +12,6 @@ import com.txusmslabs.templateapp.ui.common.EventObserver
 import com.txusmslabs.templateapp.ui.common.PermissionRequester
 import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
-import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.scope.lifecycleScope
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.scope.viewModel
@@ -36,7 +35,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
         binding = FragmentMainBinding.inflate(layoutInflater)
         return binding.root
@@ -58,7 +57,7 @@ class MainFragment : Fragment() {
         })
 
         adapter = MoviesAdapter(viewModel::onMovieClicked)
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
 
         with(binding) {
             viewmodel = viewModel

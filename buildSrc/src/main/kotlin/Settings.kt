@@ -3,6 +3,8 @@ object Versions {
     const val navigation = "2.3.1"
     const val retrofit = "2.9.0"
     const val okhttp = "4.9.0"
+    const val koin = "2.1.6"
+    const val mockito = "3.6.0"
 }
 
 object Libs {
@@ -40,14 +42,14 @@ object Libs {
         "com.squareup.retrofit2:retrofit:${Versions.retrofit}",
         "com.squareup.retrofit2:converter-gson:${Versions.retrofit}",
         "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}",
-        "org.koin:koin-android-viewmodel:2.1.6"
+        "org.koin:koin-android-viewmodel:${Versions.koin}"
     )
 
     val testLibs = listOf(
         "junit:junit:4.13.1",
         "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0",
-        "org.mockito:mockito-inline:3.6.0",
-        "org.koin:koin-test:2.1.6"
+        "org.mockito:mockito-inline:${Versions.mockito}",
+        "org.koin:koin-test:${Versions.koin}"
 //        project(":testShared")
     )
 
@@ -61,8 +63,8 @@ object Libs {
         "androidx.arch.core:core-testing:2.1.0",
         "androidx.test:rules:1.3.0",
         "androidx.test.ext:junit-ktx:1.1.2",
-        "org.koin:koin-test:2.1.6",
-        "org.mockito:mockito-android:3.6.0",
+        "org.koin:koin-test:${Versions.koin}",
+        "org.mockito:mockito-android:${Versions.mockito}",
         "com.squareup.okhttp3:mockwebserver:${Versions.okhttp}",
         "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0",
         "androidx.navigation:navigation-testing:2.3.1"
