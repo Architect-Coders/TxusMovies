@@ -3,7 +3,7 @@ object Versions {
     const val navigation = "2.3.1"
     const val retrofit = "2.9.0"
     const val okhttp = "4.9.0"
-    const val koin = "2.2.0"
+    const val koin = "2.2.1"
     const val mockito = "3.6.0"
 }
 
