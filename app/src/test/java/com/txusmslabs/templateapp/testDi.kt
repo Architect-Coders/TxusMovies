@@ -57,19 +57,19 @@ class FakeLocalDataSource : LocalDataSource {
 
 class FakeRemoteDataSource : RemoteDataSource {
 
-    var movies = defaultFakeMovies
+    private var movies = defaultFakeMovies
 
     override suspend fun getPopularMovies(apiKey: String, region: String) = Either.Right(movies)
 }
 
 class FakeLocationDataSource : LocationDataSource {
-    var location = "US"
+    private var location = "US"
 
-    override suspend fun findLastRegion(): String? = location
+    override suspend fun findLastRegion(): String = location
 }
 
 class FakePermissionChecker : PermissionChecker {
-    var permissionGranted = true
+    private var permissionGranted = true
 
     override suspend fun check(permission: PermissionChecker.Permission): Boolean =
         permissionGranted

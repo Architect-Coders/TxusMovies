@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.Event
 import com.txusmslabs.templateapp.ui.common.ScopedViewModel
-import com.txusmslabs.templateapp.util.wrapEspressoIdlingResource
 import com.txusmslabs.usecases.GetPopularMovies
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -42,13 +41,11 @@ class MainViewModel(
     fun onCoarsePermissionRequested() {
         launch {
             _loading.value = true
-            wrapEspressoIdlingResource {
-                getPopularMovies.invoke().fold({
+            getPopularMovies.invoke().fold({
 
-                },{
-                    _movies.postValue(it)
-                })
-            }
+            }, {
+                _movies.postValue(it)
+            })
             _loading.value = false
         }
     }

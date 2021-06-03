@@ -11,21 +11,23 @@ import com.txusmslabs.testshared.mockedMovie
 import com.txusmslabs.usecases.FindMovieById
 import com.txusmslabs.usecases.ToggleMovieFavorite
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.stopKoin
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
-import org.koin.test.AutoCloseKoinTest
+import org.koin.test.KoinTest
 import org.koin.test.get
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class DetailIntegrationTests: AutoCloseKoinTest() {
+class DetailIntegrationTests: KoinTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -49,6 +51,11 @@ class DetailIntegrationTests: AutoCloseKoinTest() {
 
         localDataSource = get<LocalDataSource>() as FakeLocalDataSource
         localDataSource.movies = defaultFakeMovies
+    }
+
+    @After
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.txusmslabs.templateapp.framework.data
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Geocoder
 import android.location.Location
@@ -13,6 +14,7 @@ class PlayServicesLocationDataSource(application: Application) : LocationDataSou
     private val geocoder = Geocoder(application)
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
 
+    @SuppressLint("MissingPermission")
     override suspend fun findLastRegion(): String? =
         suspendCancellableCoroutine { continuation ->
             fusedLocationClient.lastLocation

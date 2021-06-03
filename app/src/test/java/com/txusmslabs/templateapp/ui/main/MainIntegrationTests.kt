@@ -9,12 +9,14 @@ import com.txusmslabs.templateapp.defaultFakeMovies
 import com.txusmslabs.templateapp.initMockedDi
 import com.txusmslabs.testshared.mockedMovie
 import com.txusmslabs.usecases.GetPopularMovies
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.stopKoin
 import org.koin.dsl.module
-import org.koin.test.AutoCloseKoinTest
+import org.koin.test.KoinTest
 import org.koin.test.get
 import org.mockito.Mock
 import org.mockito.Mockito.verify
@@ -22,7 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class MainIntegrationTests: AutoCloseKoinTest() {
+class MainIntegrationTests: KoinTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -41,6 +43,11 @@ class MainIntegrationTests: AutoCloseKoinTest() {
 
         initMockedDi(vmModule)
         vm = get()
+    }
+
+    @After
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test

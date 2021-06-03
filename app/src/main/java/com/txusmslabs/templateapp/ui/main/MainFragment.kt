@@ -13,6 +13,7 @@ import com.txusmslabs.templateapp.ui.common.SharedViewModel
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : ScopeFragment() {
@@ -24,7 +25,7 @@ class MainFragment : ScopeFragment() {
             ACCESS_COARSE_LOCATION
         )
     }
-    private val viewModel: MainViewModel by inject()
+    private val viewModel: MainViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by sharedViewModel()
 
     private lateinit var navController: NavController

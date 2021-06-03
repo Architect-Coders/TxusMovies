@@ -14,11 +14,12 @@ import com.txusmslabs.templateapp.ui.common.app
 import com.txusmslabs.templateapp.ui.common.toast
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class DetailFragment : ScopeFragment() {
 
-    private val viewModel: DetailViewModel by inject {
+    private val viewModel: DetailViewModel by viewModel {
         parametersOf(args.id)
     }
     private val sharedViewModel: SharedViewModel by sharedViewModel()

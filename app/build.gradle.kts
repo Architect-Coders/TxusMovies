@@ -7,12 +7,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
-    buildToolsVersion = "29.0.3"
+    compileSdkVersion(30)
 
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode(1)
         versionName("1.0.0")
         multiDexEnabled = true
@@ -23,7 +22,7 @@ android {
     buildTypes {
         getByName("debug") {
             debuggable(true)
-            isMinifyEnabled = true
+            isMinifyEnabled = false
         }
         getByName("release") {
             minifyEnabled(false)
@@ -74,9 +73,7 @@ dependencies {
     Libs.androidTestLibs.forEach {
         androidTestImplementation(it)
     }
-
-    // Testing code should not be included in the main code.
-    // Once https://issuetracker.google.com/128612536 is fixed this can be fixed.
-    debugImplementation("androidx.fragment:fragment-testing:1.2.5")
-    implementation("androidx.test:core:1.3.0")
+    Libs.androidxDebugTestLibs.forEach {
+        debugImplementation(it)
+    }
 }

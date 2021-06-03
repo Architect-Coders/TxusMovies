@@ -13,7 +13,6 @@ import androidx.test.rule.GrantPermissionRule
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.framework.data.server.TheMovieDb
-import com.txusmslabs.templateapp.util.EspressoIdlingResource
 import com.txusmslabs.templateapp.utils.*
 import okhttp3.mockwebserver.MockResponse
 import org.junit.After
@@ -58,7 +57,6 @@ class UiTest : KoinTest {
     fun registerIdlingResource() {
         IdlingRegistry.getInstance().register(dataBindingIdlingResource)
         IdlingRegistry.getInstance().register(splashIdlingResource)
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
 
     /**
@@ -68,7 +66,6 @@ class UiTest : KoinTest {
     fun unregisterIdlingResource() {
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
         IdlingRegistry.getInstance().unregister(splashIdlingResource)
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
@@ -77,6 +74,7 @@ class UiTest : KoinTest {
         dataBindingIdlingResource.monitorActivity(activityScenario)
         splashIdlingResource.monitorNavController(activityScenario)
 
+        Thread.sleep(1000)
         onView(withId(R.id.recycler)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 4,

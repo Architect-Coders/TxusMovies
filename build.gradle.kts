@@ -1,28 +1,29 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
+plugins {
+    id("com.github.ben-manes.versions").version("0.39.0")
+}
+
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.1")
+        classpath("com.android.tools.build:gradle:4.2.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("com.google.gms:google-services:4.3.4")
+        classpath("com.google.gms:google-services:4.3.8")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.36.0")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-apply(plugin = "com.github.ben-manes.versions")
-
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
 }
@@ -38,7 +39,7 @@ fun isNonStable(version: String): Boolean {
     return isStable.not()
 }
 
-tasks.named("dependencyUpdates", DependencyUpdatesTask::class.java).configure {
+tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
     resolutionStrategy {
         componentSelection {
             all {
