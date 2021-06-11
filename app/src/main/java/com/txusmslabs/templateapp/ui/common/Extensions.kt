@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import coil.load
 import com.txusmslabs.templateapp.MyApp
 import kotlin.properties.Delegates
 
@@ -32,7 +32,7 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): 
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
 fun ImageView.loadUrl(url: String) {
-    Picasso.get().load(url).into(this)
+    load(url)
 }
 
 inline fun <reified T : Activity> Context.intentFor(body: Intent.() -> Unit): Intent =

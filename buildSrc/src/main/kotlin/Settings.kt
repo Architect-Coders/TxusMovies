@@ -18,17 +18,17 @@ object Libs {
         "androidx.appcompat:appcompat:${Versions.appCompat}",
         "androidx.cardview:cardview:1.0.0",
         "androidx.constraintlayout:constraintlayout:2.0.4",
+        "androidx.fragment:fragment-ktx:${Versions.fragment}",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}",
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}",
         "androidx.navigation:navigation-ui-ktx:${Versions.navigation}",
-        "androidx.fragment:fragment-ktx:${Versions.fragment}",
         "androidx.recyclerview:recyclerview-selection:1.1.0",
         "androidx.room:room-runtime:${Versions.room}",
         "androidx.room:room-ktx:${Versions.room}",
         "com.google.android.gms:play-services-location:18.0.0",
         "com.google.android.material:material:${Versions.material}",
         "com.karumi:dexter:6.2.2",
-        "com.squareup.picasso:picasso:2.71828"
+        "io.coil-kt:coil:1.2.2"
     )
 
     val androidKaptLibs = listOf(
