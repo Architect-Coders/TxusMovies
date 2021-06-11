@@ -10,7 +10,7 @@ class PermissionRequester(private val activity: Activity, private val permission
 
     fun request(continuation: (Boolean) -> Unit) {
         Dexter
-            .withActivity(activity)
+            .withContext(activity)
             .withPermission(permission)
             .withListener(object : BasePermissionListener() {
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {

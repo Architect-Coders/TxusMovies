@@ -13,16 +13,16 @@ fun TextView.updateMovieDetails(movie: Movie?) = movie?.run {
     text = buildSpannedString {
 
         bold { append("Original language: ") }
-        appendln(originalLanguage)
+        appendLine(originalLanguage)
 
         bold { append("Original title: ") }
-        appendln(originalTitle)
+        appendLine(originalTitle)
 
         bold { append("Release date: ") }
-        appendln(releaseDate)
+        appendLine(releaseDate)
 
         bold { append("Popularity: ") }
-        appendln(popularity.toString())
+        appendLine(popularity.toString())
 
         bold { append("Vote Average: ") }
         append(voteAverage.toString())

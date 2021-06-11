@@ -18,13 +18,13 @@ object Libs {
         "androidx.appcompat:appcompat:${Versions.appCompat}",
         "androidx.cardview:cardview:1.0.0",
         "androidx.constraintlayout:constraintlayout:2.0.4",
-//        "androidx.core:core-ktx:1.3.2",
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}",
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}",
         "androidx.navigation:navigation-ui-ktx:${Versions.navigation}",
         "androidx.fragment:fragment-ktx:${Versions.fragment}",
         "androidx.recyclerview:recyclerview-selection:1.1.0",
         "androidx.room:room-runtime:${Versions.room}",
+        "androidx.room:room-ktx:${Versions.room}",
         "com.google.android.gms:play-services-location:18.0.0",
         "com.google.android.material:material:${Versions.material}",
         "com.karumi:dexter:6.2.2",
@@ -54,12 +54,11 @@ object Libs {
         "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0",
         "org.mockito:mockito-inline:${Versions.mockito}",
         "io.insert-koin:koin-test:${Versions.koin}"
-//        project(":testShared")
     )
 
     val androidxTestLibs = listOf(
-//        "android.arch.core:core-testing:1.1.1",
-        "androidx.arch.core:core-testing:2.1.0"
+        "androidx.arch.core:core-testing:2.1.0",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     )
 
     val androidTestLibs = listOf(
@@ -73,8 +72,6 @@ object Libs {
         "com.squareup.okhttp3:mockwebserver:${Versions.okhttp}",
         "io.insert-koin:koin-test:${Versions.koin}",
         "org.mockito:mockito-android:${Versions.mockito}"
-//        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
-//                fragmentTest :"androidx.fragment:fragment-testing:1.2.2"
     )
 
     val androidxDebugTestLibs = listOf(

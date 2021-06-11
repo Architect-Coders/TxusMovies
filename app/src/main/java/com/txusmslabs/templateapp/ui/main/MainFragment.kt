@@ -3,20 +3,22 @@ package com.txusmslabs.templateapp.ui.main
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentMainBinding
-import com.txusmslabs.templateapp.ui.common.EventObserver
-import com.txusmslabs.templateapp.ui.common.PermissionRequester
-import com.txusmslabs.templateapp.ui.common.SharedViewModel
+import com.txusmslabs.templateapp.ui.common.*
 import com.txusmslabs.templateapp.ui.dialog.AlertFragmentDirections
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainFragment : ScopeFragment() {
+class MainFragment : BaseFragment() {
 
     private lateinit var adapter: MoviesAdapter
     private val coarsePermissionRequester by lazy {
@@ -59,11 +61,31 @@ class MainFragment : ScopeFragment() {
         adapter = MoviesAdapter(viewModel::onMovieClicked)
         binding.recycler.adapter = adapter
 
-        with(binding) {
-            viewmodel = viewModel
-            lifecycleOwner = viewLifecycleOwner
+//        with(binding) {
+//            viewmodel = viewModel
+//            lifecycleOwner = viewLifecycleOwner
+//        }
+    }
+
+    override fun initFlows() {
+        launch {
+            viewModel.uiState.collect { uiState ->
+
+                with(binding) {
+                    progress.isVisible = uiState.loading
+                    recycler.setItems(uiState.movies)
+                }
+//                if (it.notFound) {
+//                    app.toast(R.string.message_movie_not_found)
+//                    findNavController().popBackStack()
+//                }
+//                it.movie?.let { m -> onStateChanged(m) }
+            }
         }
     }
+
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

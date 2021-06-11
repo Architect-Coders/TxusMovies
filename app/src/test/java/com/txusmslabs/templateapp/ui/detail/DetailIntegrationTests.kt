@@ -1,16 +1,17 @@
 package com.txusmslabs.templateapp.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.txusmslabs.data.source.LocalDataSource
-import com.txusmslabs.domain.Movie
+import com.txusmslabs.templateapp.CoroutinesTestRule
 import com.txusmslabs.templateapp.FakeLocalDataSource
 import com.txusmslabs.templateapp.defaultFakeMovies
 import com.txusmslabs.templateapp.initMockedDi
 import com.txusmslabs.testshared.mockedMovie
 import com.txusmslabs.usecases.FindMovieById
 import com.txusmslabs.usecases.ToggleMovieFavorite
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -22,18 +23,18 @@ import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
-import org.mockito.Mock
-import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
-class DetailIntegrationTests: KoinTest {
+@ExperimentalCoroutinesApi
+class DetailIntegrationTests : KoinTest {
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val instantExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    lateinit var observer: Observer<Movie>
+    @get:Rule
+    val coroutinesTestRule = CoroutinesTestRule()
 
     private lateinit var vm: DetailViewModel
     private lateinit var localDataSource: FakeLocalDataSource
@@ -59,20 +60,20 @@ class DetailIntegrationTests: KoinTest {
     }
 
     @Test
-    fun `observing LiveData finds the movie`() {
-        vm.movie.observeForever(observer)
+    fun `observing StateFlow finds the movie`() =
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            vm.findMovie()
+            val s = vm.uiState.first()
 
-        verify(observer).onChanged(mockedMovie.copy(1))
-    }
+            assertEquals(mockedMovie.copy(1), s.movie)
+        }
 
     @Test
-    fun `favorite is updated in local data source`() {
-        vm.movie.observeForever(observer)
+    fun `favorite is updated in local data source`() =
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            vm.findMovie()
+            vm.onFavoriteClicked()
 
-        vm.onFavoriteClicked()
-
-        runBlocking {
-            assertTrue(localDataSource.findById(1).favorite)
+            assertTrue(localDataSource.findById(1)?.favorite == true)
         }
-    }
 }

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="viewmodel"
-            type="com.txusmslabs.templateapp.ui.main.MainViewModel" />
+<!--        <variable-->
+<!--            name="viewmodel"-->
+<!--            type="com.txusmslabs.templateapp.ui.main.MainViewModel" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,11 +14,11 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.MainFragment">
 
+<!--            app:items="@{viewmodel.movies}"-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:items="@{viewmodel.movies}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visible="@{viewmodel.loading}" />
+             />
+<!--        app:visible="@{viewmodel.loading}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

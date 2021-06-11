@@ -2,6 +2,7 @@ package com.txusmslabs.templateapp.ui
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,7 @@ class SplashFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             navController.navigate(SplashFragmentDirections.actionSplashFragmentToMainFragment())
         }, SPLASH_DURATION_IN_MILLISECONDS)
     }

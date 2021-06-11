@@ -4,12 +4,16 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.whenever
 import com.txusmslabs.data.functional.Either
-import com.txusmslabs.domain.Movie
+import com.txusmslabs.templateapp.CoroutinesTestRule
 import com.txusmslabs.templateapp.ui.common.Event
 import com.txusmslabs.testshared.mockedMovie
 import com.txusmslabs.usecases.GetPopularMovies
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -17,24 +21,24 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class MainViewModelTest {
 
     @get:Rule
-    val rule = InstantTaskExecutorRule() // Para test LiveData
+    val rule = InstantTaskExecutorRule()
+
+    @get:Rule
+    val coroutinesTestRule = CoroutinesTestRule()
 
     @Mock
     lateinit var getPopularMovies: GetPopularMovies
 
     @Mock
     lateinit var observerPermission: Observer<Event<Unit>>
-
-    @Mock
-    lateinit var observerLoading: Observer<Boolean>
-
-    @Mock
-    lateinit var observerMovies: Observer<List<Movie>>
 
     private lateinit var vm: MainViewModel
 
@@ -52,31 +56,35 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `after requesting the permission, loading is shown`() {
-        runBlocking {
+    fun `after requesting the permission, loading is shown`() =
+        coroutinesTestRule.testDispatcher.runBlockingTest {
 
             val movies = listOf(mockedMovie.copy(id = 1))
             whenever(getPopularMovies.invoke()).thenReturn(Either.Right(movies))
-            vm.loading.observeForever(observerLoading)
+
+            val states = arrayListOf<MainViewState>()
+            val job = launch {
+                vm.uiState.toList(states) //now it should work
+            }
 
             vm.onCoarsePermissionRequested()
 
-            verify(observerLoading).onChanged(true)
+            assertTrue(states.size > 0)
+            assertTrue(states[1].loading)
+
+            job.cancel()
         }
-    }
 
     @Test
-    fun `after requesting the permission, getPopularMovies is called`() {
+    fun `after requesting the permission, getPopularMovies is called`() =
+        coroutinesTestRule.testDispatcher.runBlockingTest {
 
-        runBlocking {
             val movies = listOf(mockedMovie.copy(id = 1))
             whenever(getPopularMovies.invoke()).thenReturn(Either.Right(movies))
 
-            vm.movies.observeForever(observerMovies)
-
             vm.onCoarsePermissionRequested()
 
-            verify(observerMovies).onChanged(movies)
+            val s = vm.uiState.first()
+            assertEquals(movies, s.movies)
         }
-    }
 }

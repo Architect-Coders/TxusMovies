@@ -17,11 +17,11 @@ class AlertFragment: DialogFragment() {
 
             builder.setMessage(args.message)
                 .setPositiveButton(R.string.dialog_ok_button
-                ) { dialog, id ->
+                ) { _, _ ->
                     // TODO
                 }
                 .setNegativeButton(R.string.dialog_cancel_button
-                ) { dialog, id ->
+                ) { _, _ ->
                     // TODO: Cancel
                 }
             // Create the AlertDialog object and return it

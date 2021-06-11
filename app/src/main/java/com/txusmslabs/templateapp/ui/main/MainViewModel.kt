@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.ui.common.Event
 import com.txusmslabs.templateapp.ui.common.ScopedViewModel
+import com.txusmslabs.templateapp.ui.detail.DetailViewState
 import com.txusmslabs.usecases.GetPopularMovies
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -14,11 +17,8 @@ class MainViewModel(
     uiDispatcher: CoroutineDispatcher
 ) : ScopedViewModel(uiDispatcher) {
 
-    private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> get() = _movies
-
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> get() = _loading
+    private val _uiState = MutableStateFlow(MainViewState())
+    val uiState: StateFlow<MainViewState> get() = _uiState
 
     private val _navigateToMovie = MutableLiveData<Event<Int>>()
     val navigateToMovie: LiveData<Event<Int>> get() = _navigateToMovie
@@ -40,13 +40,14 @@ class MainViewModel(
 
     fun onCoarsePermissionRequested() {
         launch {
-            _loading.value = true
+            _uiState.value = MainViewState(loading = true)
             getPopularMovies.invoke().fold({
-
+                _uiState.value = MainViewState(loading = false)
+                it
             }, {
-                _movies.postValue(it)
+                _uiState.value = MainViewState(loading = false, movies = it)
+                it
             })
-            _loading.value = false
         }
     }
 

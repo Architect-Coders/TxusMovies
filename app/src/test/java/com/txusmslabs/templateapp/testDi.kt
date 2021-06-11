@@ -47,7 +47,7 @@ class FakeLocalDataSource : LocalDataSource {
 
     override suspend fun getPopularMovies(): List<Movie> = movies
 
-    override suspend fun findById(id: Int): Movie = movies.first { it.id == id }
+    override suspend fun findById(id: Int): Movie? = movies.firstOrNull { it.id == id }
 
     override suspend fun update(movie: Movie): Boolean {
         movies = movies.filterNot { it.id == movie.id } + movie
