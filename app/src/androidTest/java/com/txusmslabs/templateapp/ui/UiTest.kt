@@ -12,7 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.GrantPermissionRule
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.txusmslabs.templateapp.R
-import com.txusmslabs.templateapp.framework.data.server.TheMovieDb
+import com.txusmslabs.templateapp.data.server.TheMovieDb
 import com.txusmslabs.templateapp.utils.*
 import okhttp3.mockwebserver.MockResponse
 import org.junit.After

@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data
+package com.txusmslabs.templateapp.data
 
 import android.annotation.SuppressLint
 import android.app.Application

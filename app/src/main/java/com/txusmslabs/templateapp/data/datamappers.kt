@@ -1,8 +1,8 @@
 package com.txusmslabs.templateapp.framework.data
 
 import com.txusmslabs.domain.Movie
-import com.txusmslabs.templateapp.framework.data.database.Movie as DomainMovie
-import com.txusmslabs.templateapp.framework.data.server.Movie as ServerMovie
+import com.txusmslabs.templateapp.data.database.Movie as DomainMovie
+import com.txusmslabs.templateapp.data.server.Movie as ServerMovie
 
 fun Movie.toRoomMovie(): DomainMovie =
     DomainMovie(

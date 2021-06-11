@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data.database
+package com.txusmslabs.templateapp.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

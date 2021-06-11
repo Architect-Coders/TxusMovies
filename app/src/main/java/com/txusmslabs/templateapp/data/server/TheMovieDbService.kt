@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data.server
+package com.txusmslabs.templateapp.data.server
 
 import retrofit2.Response
 import retrofit2.http.GET

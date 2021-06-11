@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data.server
+package com.txusmslabs.templateapp.data.server
 
 import com.txusmslabs.data.exception.Failure
 import com.txusmslabs.data.functional.Either

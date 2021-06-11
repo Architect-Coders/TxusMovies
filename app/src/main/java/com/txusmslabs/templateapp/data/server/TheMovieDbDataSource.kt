@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data.server
+package com.txusmslabs.templateapp.data.server
 
 import android.util.Log
 import com.txusmslabs.data.exception.Failure

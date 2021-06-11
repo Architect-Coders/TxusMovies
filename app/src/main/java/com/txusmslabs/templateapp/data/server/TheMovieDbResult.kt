@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data.server
+package com.txusmslabs.templateapp.data.server
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

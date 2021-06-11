@@ -1,4 +1,4 @@
-package com.txusmslabs.templateapp.framework.data.database
+package com.txusmslabs.templateapp.data.database
 
 import com.txusmslabs.data.source.LocalDataSource
 import com.txusmslabs.domain.Movie
