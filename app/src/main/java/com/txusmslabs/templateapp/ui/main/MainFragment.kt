@@ -7,6 +7,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.txusmslabs.templateapp.R
 import com.txusmslabs.templateapp.databinding.FragmentMainBinding
 import com.txusmslabs.templateapp.ui.common.*
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 
 class MainFragment : BaseFragment() {
@@ -30,7 +33,6 @@ class MainFragment : BaseFragment() {
     private val viewModel: MainViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by sharedViewModel()
 
-    private lateinit var navController: NavController
     private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
@@ -45,41 +47,51 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = view.findNavController()
 
+        initViews()
+        initListeners()
+        initObservers()
+    }
+
+    private fun initViews() {
+        adapter = MoviesAdapter(viewModel::onMovieClicked).apply {
+
+        }
+        binding.recycler.adapter = adapter
+    }
+
+    private fun initListeners() {
+        val layoutManager = binding.recycler.layoutManager as GridLayoutManager
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                viewModel.notifyLastVisible(layoutManager.findLastVisibleItemPosition())
+            }
+        })
+    }
+
+    private fun initObservers() {
         viewModel.navigateToMovie.observe(viewLifecycleOwner, EventObserver { id ->
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(id)
-            navController.navigate(action)
+            navigate(action)
         })
-
         viewModel.requestLocationPermission.observe(viewLifecycleOwner, EventObserver {
             coarsePermissionRequester.request {
                 viewModel.onCoarsePermissionRequested()
             }
         })
-
-        adapter = MoviesAdapter(viewModel::onMovieClicked)
-        binding.recycler.adapter = adapter
-
-//        with(binding) {
-//            viewmodel = viewModel
-//            lifecycleOwner = viewLifecycleOwner
-//        }
+        viewModel.movies.observe(viewLifecycleOwner) {
+            binding.recycler.setItems(it)
+        }
     }
 
     override fun initFlows() {
         launch {
             viewModel.uiState.collect { uiState ->
-
                 with(binding) {
                     progress.isVisible = uiState.loading
-                    recycler.setItems(uiState.movies)
+//                    recycler.setItems(uiState.movies)
                 }
-//                if (it.notFound) {
-//                    app.toast(R.string.message_movie_not_found)
-//                    findNavController().popBackStack()
-//                }
-//                it.movie?.let { m -> onStateChanged(m) }
             }
         }
     }
@@ -91,7 +103,7 @@ class MainFragment : BaseFragment() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 val action = AlertFragmentDirections.actionToAlertFragment("Hola!!")
-                navController.navigate(action)
+                navigate(action)
                 true
             }
             R.id.action_test_deeplink -> {

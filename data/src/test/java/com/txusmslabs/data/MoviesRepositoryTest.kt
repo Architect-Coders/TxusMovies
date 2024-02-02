@@ -59,7 +59,7 @@ class MoviesRepositoryTest {
 
             val remoteMovies = listOf(mockedMovie.copy(2))
             whenever(localDataSource.isEmpty()).thenReturn(true)
-            whenever(remoteDataSource.getPopularMovies(any(), any())).thenReturn(Either.Right(remoteMovies))
+            whenever(remoteDataSource.getMovies(any(), any())).thenReturn(Either.Right(remoteMovies))
             whenever(regionRepository.findLastRegion()).thenReturn("US")
 
             moviesRepository.suspendPopularMovies()

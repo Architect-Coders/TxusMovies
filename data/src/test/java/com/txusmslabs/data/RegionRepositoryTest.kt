@@ -12,6 +12,27 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import java.time.ZonedDateTime
+import android.Manifest.permission
+
+import jdk.nashorn.internal.objects.NativeRegExp.source
+import java.time.ZoneId
+import android.Manifest.permission
+
+import jdk.nashorn.internal.objects.NativeRegExp.source
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import android.Manifest.permission
+
+import jdk.nashorn.internal.objects.NativeRegExp.source
+import java.util.*
+import android.Manifest.permission
+
+import jdk.nashorn.internal.objects.NativeRegExp.source
+
+
+
+
 
 @RunWith(MockitoJUnitRunner::class)
 class RegionRepositoryTest {
@@ -52,6 +73,17 @@ class RegionRepositoryTest {
 
             assertEquals("ES", region)
         }
+    }
+
+    @Test
+    fun `returns date formatted`() {
+        val zoneId: ZoneId = ZoneId.of("Europe/Madrid")
+        val zdt: ZonedDateTime = ZonedDateTime.now(zoneId)
+        var formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+        val locale = Locale("es", "ES")
+        formatter = formatter.withLocale(locale)
+        val output = zdt.format(formatter)
+        assertEquals("fdfd", output)
     }
 
 }

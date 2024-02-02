@@ -18,6 +18,7 @@ import com.txusmslabs.templateapp.ui.detail.DetailFragment
 import com.txusmslabs.templateapp.ui.detail.DetailViewModel
 import com.txusmslabs.templateapp.ui.main.MainFragment
 import com.txusmslabs.templateapp.ui.main.MainViewModel
+import com.txusmslabs.usecases.CheckMoviesNewPage
 import com.txusmslabs.usecases.FindMovieById
 import com.txusmslabs.usecases.GetPopularMovies
 import com.txusmslabs.usecases.ToggleMovieFavorite
@@ -44,7 +45,7 @@ private val appModule = module {
     single(named("apiKey")) { androidApplication().getString(R.string.api_key) }
     single { MovieDatabase.build(get()) }
     factory<LocalDataSource> { RoomDataSource(get()) }
-    factory<RemoteDataSource> { TheMovieDbDataSource(get()) }
+    factory<RemoteDataSource> { TheMovieDbDataSource(get(), get(named("apiKey"))) }
     factory<LocationDataSource> { PlayServicesLocationDataSource(get()) }
     factory<PermissionChecker> { AndroidPermissionChecker(get()) }
     single<CoroutineDispatcher> { Dispatchers.Main }
@@ -54,13 +55,14 @@ private val appModule = module {
 
 val dataModule = module {
     factory { RegionRepository(get(), get()) }
-    factory { MoviesRepository(get(), get(), get(), get(named("apiKey"))) }
+    factory { MoviesRepository(get(), get(), get()) }
 }
 
 private val scopesModule = module {
     scope<MainFragment> {
-        viewModel { MainViewModel(get(), get()) }
+        viewModel { MainViewModel(get(), get(), get()) }
         scoped { GetPopularMovies(get()) }
+        scoped { CheckMoviesNewPage(get()) }
     }
 
     scope<DetailFragment> {

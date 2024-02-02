@@ -59,7 +59,7 @@ class FakeRemoteDataSource : RemoteDataSource {
 
     private var movies = defaultFakeMovies
 
-    override suspend fun getPopularMovies(apiKey: String, region: String) = Either.Right(movies)
+    override suspend fun getMovies(apiKey: String, region: String) = Either.Right(movies)
 }
 
 class FakeLocationDataSource : LocationDataSource {

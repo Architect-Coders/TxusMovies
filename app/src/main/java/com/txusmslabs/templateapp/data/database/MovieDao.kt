@@ -1,12 +1,13 @@
 package com.txusmslabs.templateapp.data.database
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
 
     @Query("SELECT * FROM Movie")
-    suspend fun getAll(): List<Movie>
+    fun getAll(): Flow<List<Movie>>
 
     @Query("SELECT * FROM Movie WHERE id = :id")
     suspend fun findById(id: Int): Movie?

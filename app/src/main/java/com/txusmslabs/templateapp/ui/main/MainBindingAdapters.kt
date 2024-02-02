@@ -6,7 +6,5 @@ import com.txusmslabs.domain.Movie
 
 @BindingAdapter("items")
 fun RecyclerView.setItems(movies: List<Movie>?) {
-    (adapter as? MoviesAdapter)?.let {
-        it.movies = movies ?: emptyList()
-    }
+    (adapter as? MoviesAdapter)?.submitList(movies ?: emptyList())
 }

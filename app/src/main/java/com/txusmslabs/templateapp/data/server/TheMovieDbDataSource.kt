@@ -7,17 +7,18 @@ import com.txusmslabs.data.source.RemoteDataSource
 import com.txusmslabs.domain.Movie
 import com.txusmslabs.templateapp.framework.data.toDomainMovie
 
-class TheMovieDbDataSource(private val theMovieDb: TheMovieDb) : RemoteDataSource {
+class TheMovieDbDataSource(private val theMovieDb: TheMovieDb, private val apiKey: String) : RemoteDataSource {
 
-    override suspend fun getPopularMovies(
-        apiKey: String,
-        region: String
+    override suspend fun getMovies(
+        page: Int
+//        apiKey: String,
+//        region: String
     ): Either<Failure, List<Movie>> {
 
         try {
 
             return theMovieDb.service
-                .listPopularMoviesAsync(apiKey, region).safeCall(transform = {
+                .listPopularMoviesAsync(apiKey, page).safeCall(transform = {
                     it.results.mapNotNull { m ->
                         try {
 

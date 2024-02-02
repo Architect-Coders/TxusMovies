@@ -6,5 +6,5 @@ import com.txusmslabs.domain.Movie
 class GetPopularMovies(
     private val mainRepository: MoviesRepository
 ) {
-    suspend fun invoke() = mainRepository.suspendPopularMovies()
+    fun flow() = mainRepository.getMovies()
 }

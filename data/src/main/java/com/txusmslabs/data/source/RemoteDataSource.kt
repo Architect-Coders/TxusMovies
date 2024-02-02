@@ -5,5 +5,5 @@ import com.txusmslabs.data.functional.Either
 import com.txusmslabs.domain.Movie
 
 interface RemoteDataSource {
-    suspend fun getPopularMovies(apiKey: String, region: String): Either<Failure, List<Movie>>
+    suspend fun getMovies(page: Int): Either<Failure, List<Movie>>
 }
